@@ -5,7 +5,12 @@
  */
 package Threads;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -13,14 +18,33 @@ import java.net.Socket;
  */
 public class Client extends Thread {
 
-    Socket clientSocket;
+    private ObjectOutputStream out;
+    private ObjectInputStream in;
+    private boolean end = false;
+    private Socket clientSocket;
 
     public Client(Socket clientSocket) {
-        this.clientSocket = clientSocket;
+        try {
+            this.clientSocket = clientSocket;
+            out = new ObjectOutputStream(clientSocket.getOutputStream());
+            in = new ObjectInputStream(clientSocket.getInputStream());
+        } catch (IOException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     @Override
     public void run() {
-        super.run(); //To change body of generated methods, choose Tools | Templates.
+        while(!end) {
+            try {
+                String message = (String) in.readObject();
+                System.out.println(message);
+            } catch (Exception ex) {
+                end = true;
+                System.out.println("Client closed connection.");
+//                Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }

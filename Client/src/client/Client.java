@@ -22,9 +22,6 @@ public class Client extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        // We want user to connect to server at start of application
-        
-        
         String resourcePath = "FXMLDocument.fxml";
         URL location = getClass().getResource(resourcePath);
         FXMLLoader fxmlLoader = new FXMLLoader(location);
@@ -36,6 +33,7 @@ public class Client extends Application {
         stage.setScene(scene);
         stage.setTitle("Prijavljivanje na sistem");
         stage.show();
+        controller.setStage(stage);
     }
 
     /**

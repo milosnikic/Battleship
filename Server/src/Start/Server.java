@@ -16,12 +16,19 @@ import java.util.logging.Logger;
  *
  * @author milos
  */
-public class Server {
+public class Server extends Thread {
 
-    public static void main(String[] args) {
+    private int portNumber;
+
+    public Server(int portNumber) {
+        this.portNumber = portNumber;
+    }
+
+    @Override
+    public void run() {
         try {
             // Listening to users connections
-            ServerSocket serverSocket = new ServerSocket(1010);
+            ServerSocket serverSocket = new ServerSocket(portNumber);
             System.out.println("Listening for connections...");
 
             while (true) {
@@ -37,6 +44,5 @@ public class Server {
             // Error creating server socker
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 }

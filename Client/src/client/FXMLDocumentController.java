@@ -14,25 +14,35 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  *
  * @author milos
  */
 public class FXMLDocumentController implements Initializable {
-    
+
     Controller controller;
-    
+    Stage stage;
+
     @FXML
     public TextField usernameField;
     @FXML
     public PasswordField passwordField;
     @FXML
     public Button login;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         controller = new Controller(this);
-    }    
-    
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    public Stage getStage() {
+        return stage;
+    }
+
 }
