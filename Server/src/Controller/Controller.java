@@ -8,6 +8,9 @@ package Controller;
 import SO.AbstractGenericOperation;
 import SO.CreateGameSO;
 import SO.LoginSO;
+import SO.StartGameSO;
+import SO.UserShootSO;
+import domain.Map;
 import transfer.Request;
 import transfer.Response;
 
@@ -39,6 +42,16 @@ public class Controller {
     public Response createGame(Request request) {
         so = new CreateGameSO();
         return ((CreateGameSO) so).createGame(request);
+    }
+
+    public Response startGame(Request request) {
+        so = new StartGameSO();
+        return ((StartGameSO) so).startGame(request);
+    }
+
+    public Response userShoot(Request request, Map serverMap) {
+        so = new UserShootSO();
+        return ((UserShootSO) so).userShoot(request, serverMap);
     }
 
 }

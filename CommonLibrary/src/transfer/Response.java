@@ -5,6 +5,8 @@
  */
 package transfer;
 
+import domain.Coordinates;
+import domain.FieldState;
 import domain.Map;
 import util.ResponseStatus;
 import domain.User;
@@ -20,10 +22,28 @@ public class Response implements Serializable {
     private User user;
     private Operation operation;
     private ResponseStatus responseStatus;
-    private Map map;
+    private Boolean hit;
     private boolean userPlaying;
+    private Coordinates coordinates;
+    private Map map;
 
     public Response() {
+    }
+
+    public Map getMap() {
+        return map;
+    }
+
+    public void setMap(Map map) {
+        this.map = map;
+    }
+
+    public Coordinates getCoordinates() {
+        return coordinates;
+    }
+
+    public void setCoordinates(Coordinates coordinates) {
+        this.coordinates = coordinates;
     }
 
     public boolean isUserPlaying() {
@@ -34,12 +54,12 @@ public class Response implements Serializable {
         this.userPlaying = userPlaying;
     }
 
-    public Map getMap() {
-        return map;
+    public Boolean getHit() {
+        return hit;
     }
 
-    public void setMap(Map map) {
-        this.map = map;
+    public void setHit(Boolean hit) {
+        this.hit = hit;
     }
 
     public ResponseStatus getResponseStatus() {

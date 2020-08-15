@@ -125,4 +125,9 @@ public class FXMLDocumentController implements Initializable {
     public void selectShip(ActionEvent event) {
     }
 
+    @FXML
+    public void confirmFormation(ActionEvent event) {
+        this.controller.confirmFormation(event);
+    }
+
 }

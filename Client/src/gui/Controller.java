@@ -21,6 +21,7 @@ import java.util.LinkedList;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.input.MouseButton;
@@ -31,6 +32,7 @@ import transfer.Response;
 import util.GameStatus;
 import util.Messages;
 import util.Operation;
+import util.Ships;
 
 /**
  *
@@ -43,7 +45,7 @@ public class Controller {
     GameStatus gameStatus;
     private LinkedList<Ship> ships;
     private Ship currentSelectedShip;
-
+    private boolean userPlaying;
     private final ConnectionHandler connectionHandler;
     FXMLDocumentController document;
     private final OperationHandler operationHandler;
@@ -118,11 +120,8 @@ public class Controller {
     void handleYourGridCellButtonFired(MouseEvent event) {
         switch (gameStatus) {
             case PLACING_SHIPS:
-
                 if (!ships.isEmpty() && currentSelectedShip != null) {
-
                     Node node = (Node) event.getSource();
-
                     // We get coordinates of field clicked
                     Coordinates coordinates = new Coordinates(this.document.userMap.getRowIndex(node),
                             this.document.userMap.getColumnIndex(node));
@@ -152,13 +151,12 @@ public class Controller {
                         this.document.confirmButton.setDisable(false);
                         this.document.shipsList.setDisable(true);
                         seTGridIsDisable(this.document.userMap, true);
+                        this.gameStatus = GameStatus.PLAYING;
                     }
                     break;
                 } else {
                     updateStatus("Izaberite prvo brod.");
                 }
-                break;
-            case PLAYING:
                 break;
             case END:
                 seTGridIsDisable(this.document.userMap, true);
@@ -168,66 +166,24 @@ public class Controller {
     }
 
     void handleEnemyGridCellButtonFired(MouseEvent event) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private LinkedList<Ship> getShips() {
-        LinkedList<Ship> ships = new LinkedList<>();
-        ships.add(new Ship("Battleship - 4", 4));
-        ships.add(new Ship("Cruiser 1 - 3", 3));
-        ships.add(new Ship("Cruiser 2 - 3", 3));
-        ships.add(new Ship("Destroyer 1 - 2", 2));
-        ships.add(new Ship("Destroyer 2 - 2", 2));
-        ships.add(new Ship("Destroyer 3 - 2", 2));
-        ships.add(new Ship("Singleton 1 - 1", 1));
-        ships.add(new Ship("Singleton 2 - 1", 1));
-        ships.add(new Ship("Singleton 3 - 1", 1));
-        ships.add(new Ship("Singleton 4 - 1", 1));
-
-        return ships;
+        Node node = (Node) event.getSource();
+        // We get coordinates of field clicked
+        Coordinates coordinates = new Coordinates(this.document.userMap.getRowIndex(node),
+                this.document.userMap.getColumnIndex(node));
+        Request request = new Request();
+        request.setCoordinates(coordinates);
+        request.setOperation(Operation.USER_SHOOT);
+        connectionHandler.getRequests().add(request);
     }
 
     private boolean placeShip(Node node, Ship ship) {
-        if (shipCanBePlaced(ship)) {
+        if (Ships.shipCanBePlaced(ship, ships, yourMap)) {
             colorShip(ship);
             node.setDisable(true);
             return true;
         }
         updateStatus("Brod nije moguce postaviti na trazenu poziciju!");
         return false;
-    }
-
-    private boolean shipCanBePlaced(Ship ship) {
-        if (!ships.isEmpty()) {
-            int y = ship.getCoordinates().getCol();
-            int x = ship.getCoordinates().getRow();
-            if (ship.isVertical()) {
-                for (int i = y; i < y + ship.getLength(); i++) {
-                    if (!isValidPoint(new Coordinates(x, i))) {
-                        return false;
-                    }
-                    if (yourMap.getFieldState(x, i) != FieldState.EMPTY) {
-                        return false;
-                    }
-                }
-            } else {
-                for (int i = x; i < x + ship.getLength(); i++) {
-                    if (!isValidPoint(new Coordinates(i, y))) {
-                        return false;
-                    }
-                    if (yourMap.getFieldState(i, y) != FieldState.EMPTY) {
-                        return false;
-                    }
-                }
-            }
-            return true;
-        }
-        return false;
-    }
-
-    private boolean isValidPoint(Coordinates coordinates) {
-        return coordinates.getRow() >= 0 && coordinates.getRow() < 10
-                && coordinates.getCol() >= 0 && coordinates.getCol() < 10;
     }
 
     private void colorShip(Ship ship) {
@@ -287,7 +243,6 @@ public class Controller {
             User user = response.getUser();
             if (user != null) {
                 this.user = user;
-                Messages.showSuccess("Uspesno ucitan korisnik!");
             }
         } else {
             Messages.showError("Problem sa ucitavanjem korisnika." + response.getResponseStatus() + response.getUser() + response.getOperation());
@@ -313,11 +268,78 @@ public class Controller {
 
             gameStatus = GameStatus.PLACING_SHIPS;
             yourMap = new Map();
-            ships = getShips();
+            ships = Ships.getShips();
             putShipsIntoCombobox();
         } else {
             Messages.showError("Nije moguce kreirati igru!");
         }
     }
 
+    void confirmFormation(ActionEvent event) {
+        // Initialize server map
+        // get who is playing first
+        Request request = new Request();
+        request.setMap(yourMap);
+        request.setOperation(Operation.START_GAME);
+        connectionHandler.getRequests().add(request);
+    }
+
+    void startGame(Response finalResponse) {
+        if (finalResponse.getResponseStatus() == ResponseStatus.OK) {
+            // See who is playing first
+            // And start game
+            Messages.showSuccess("Protivnik je izabrao formaciju, igra moze da pocne!");
+            seTGridIsDisable(this.document.serverMap, false);
+        } else {
+            Messages.showError("Problem prilikom startovanja igre!");
+        }
+    }
+
+    /**
+     * Method is used to update single cell of grid
+     *
+     * @param text Text which will appear in status TextField
+     * @param gridToUpdate Grid which will be updated with a shot result
+     * @param gridToChangeIsDisable Grid which status will be changed to enable
+     * or prevent shooting
+     * @param newGridState A value to which gridToChangeIsDisable will be
+     * changed
+     * @param color Color which will appear in cell of updated grid
+     * @param row Row of cell to update
+     * @param col Column of cell to update
+     */
+    private void updateGUI(String text, GridPane gridToUpdate, GridPane gridToChangeIsDisable, boolean newGridState,
+            String color, Integer row, Integer col) {
+        Platform.runLater(() -> {
+            updateStatus(text);
+
+            gridToUpdate.getChildren().get(row * 10 + col).setStyle("-fx-background-color: " + color);
+            seTGridIsDisable(gridToUpdate, newGridState);
+        });
+    }
+
+    void userShoot(Response finalResponse) {
+        if (finalResponse.getResponseStatus() == ResponseStatus.OK) {
+            int row = finalResponse.getCoordinates().getRow();
+            int col = finalResponse.getCoordinates().getCol();
+            updateGUI("Korisnik je gadjao polje " + row + " , " + col,
+                    this.document.serverMap,
+                    this.document.userMap,
+                    !finalResponse.isUserPlaying(),
+                    getFieldColor(finalResponse.getHit()),
+                    row,
+                    col);
+            // Se if is now turn for server to shoot
+            // Then we create call to server and after that we update gui
+            if(!finalResponse.isUserPlaying()) {
+                // TODO
+            }
+        } else {
+            Messages.showError("Greska prilikom gadjanja od strane servera!");
+        }
+    }
+
+    private String getFieldColor(Boolean hit) {
+        return hit ? "green" : "black" ;
+    }
 }

@@ -5,6 +5,7 @@
  */
 package transfer;
 
+import domain.Coordinates;
 import domain.Map;
 import domain.User;
 import java.io.Serializable;
@@ -16,11 +17,20 @@ import util.Operation;
  */
 public class Request implements Serializable {
 
+    private Coordinates coordinates;
     private User user;
     private Map map;
     private Operation operation;
 
     public Request() {
+    }
+
+    public Coordinates getCoordinates() {
+        return coordinates;
+    }
+
+    public void setCoordinates(Coordinates coordinates) {
+        this.coordinates = coordinates;
     }
 
     public Map getMap() {

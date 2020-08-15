@@ -506,7 +506,7 @@
                 <Font size="20.0" />
             </font>
         </Label>
-        <Button fx:id="confirmButton" layoutX="372.0" layoutY="391.0" mnemonicParsing="false" text="Potvrdi formaciju" />
+        <Button fx:id="confirmButton" layoutX="372.0" layoutY="391.0" mnemonicParsing="false" onAction="#confirmFormation" text="Potvrdi formaciju" />
         <Label fx:id="enemyBoardLbl" layoutX="41.0" layoutY="40.0" prefHeight="17.0" prefWidth="100.0" text="Protivnička tabla" />
         <Label layoutX="41.0" layoutY="395.0" prefHeight="17.0" prefWidth="100.0" text="Vaša tabla" />
         <Label fx:id="statusLbl" layoutX="408.0" layoutY="70.0" prefHeight="17.0" prefWidth="36.0" text="Status:" />

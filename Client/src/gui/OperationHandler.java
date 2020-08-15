@@ -28,7 +28,7 @@ public class OperationHandler extends Thread {
     @Override
     public void run() {
         Response response;
-        
+
         try {
             while ((response = responses.take()) != null) {
                 final Response finalResponse = response;
@@ -48,6 +48,17 @@ public class OperationHandler extends Thread {
                             controller.createGame(finalResponse);
                         });
                         break;
+                    case START_GAME:
+                        Platform.runLater(() -> {
+                            controller.startGame(finalResponse);
+                        });
+                        break;
+                    case USER_SHOOT:
+                        Platform.runLater(() -> {
+                            controller.userShoot(finalResponse);
+                        });
+                        break;
+
                 }
             }
         } catch (InterruptedException ex) {

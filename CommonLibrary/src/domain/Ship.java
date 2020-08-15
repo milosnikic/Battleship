@@ -22,6 +22,10 @@ public class Ship implements Serializable {
     public Ship() {
     }
 
+    public Ship(int length) {
+        this.length = length;
+    }
+
     public Ship(String name, int length) {
         this.name = name;
         this.length = length;
@@ -88,9 +92,5 @@ public class Ship implements Serializable {
         }
         return true;
     }
-
-    
-    
-    
 
 }

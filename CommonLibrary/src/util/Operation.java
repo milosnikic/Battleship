@@ -13,6 +13,7 @@ public enum Operation {
     LOGIN,
     CREATE_GAME,
     START_GAME,
-    SHOOT,
+    USER_SHOOT,
+    SERVER_SHOOT,
     END
 }

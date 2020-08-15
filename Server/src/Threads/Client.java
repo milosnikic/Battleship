@@ -28,7 +28,8 @@ public class Client extends Thread {
     private ObjectInputStream in;
     private boolean end = false;
     private Socket clientSocket;
-    private Map map;
+    private Map serverMap;
+    private Map userMap;
 
     public Client(Socket clientSocket) {
         try {
@@ -52,18 +53,25 @@ public class Client extends Thread {
                         response = Controller.getInstance().createGame(request);
                         createGame(response);
                         break;
-                    case END:
-                        break;
                     case LOGIN:
                         response = Controller.getInstance().login(request);
                         login(response);
+                        break;
+                    case START_GAME:
+                        startGame(request);
+                        response = Controller.getInstance().startGame(request);
+                        serverMap = response.getMap();
+                        break;
+                    case USER_SHOOT:
+                        response = Controller.getInstance().userShoot(request, serverMap);
+                    case END:
                         break;
                 }
                 sendResponse(response);
             } catch (Exception ex) {
                 end = true;
                 System.out.println("Client closed connection.");
-//                Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -87,9 +95,14 @@ public class Client extends Thread {
     }
 
     private void createGame(Response response) {
-        if(response.getResponseStatus() == ResponseStatus.OK) {
-            map = new Map();
+        if (response.getResponseStatus() == ResponseStatus.OK) {
+            serverMap = new Map();
             System.out.println("Map created!");
         }
     }
+
+    private void startGame(Request request) {
+        this.userMap = request.getMap();
+    }
+
 }
