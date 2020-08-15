@@ -26,6 +26,16 @@ public class Map implements Serializable {
         }
     }
 
+    public Map(Map otherMap) {
+        grid = new FieldState[10][10];
+
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                grid[i][j] = otherMap.getFieldState(i, j);
+            }
+        }
+    }
+
     public FieldState[][] getGrid() {
         return grid;
     }
@@ -41,7 +51,12 @@ public class Map implements Serializable {
     public void setFieldState(int row, int col, FieldState newFieldState) {
         grid[row][col] = newFieldState;
     }
-
+    
+    /**
+     * Method is used to count fields with specified state
+     * @param fieldState state to be counted
+     * @return number of fields satisfying condition
+     */
     public int countFields(FieldState fieldState) {
         int result = 0;
         for (FieldState[] fsRow : grid) {

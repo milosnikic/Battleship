@@ -5,9 +5,11 @@
  */
 package gui;
 
+import domain.User;
 import java.io.IOException;
 import java.net.URL;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  *
@@ -23,6 +26,7 @@ import javafx.stage.Stage;
  */
 public class MainMenu extends Application {
 
+    static User user;
     FXMLDocumentController controller;
 
     @Override
@@ -40,7 +44,15 @@ public class MainMenu extends Application {
         stage.setScene(scene);
         stage.setHeight(400);
         stage.show();
+
+        scene.getWindow().setOnCloseRequest(((event) -> {
+            Platform.exit();
+            // Close connection handler and operations handler
+            controller.controller.close();
+        }));
+
         controller.setStage(stage);
+
     }
 
     /**
@@ -48,6 +60,12 @@ public class MainMenu extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public void setUser(String username, String password) {
+        MainMenu.user = new User();
+        MainMenu.user.setUsername(username);
+        MainMenu.user.setPassword(password);
     }
 
 }

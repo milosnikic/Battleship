@@ -5,12 +5,17 @@
  */
 package Threads;
 
+import Controller.Controller;
+import domain.ResponseStatus;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import transfer.Request;
+import transfer.Response;
+import util.Operation;
 
 /**
  *
@@ -26,8 +31,8 @@ public class Client extends Thread {
     public Client(Socket clientSocket) {
         try {
             this.clientSocket = clientSocket;
-            out = new ObjectOutputStream(clientSocket.getOutputStream());
-            in = new ObjectInputStream(clientSocket.getInputStream());
+            out = new ObjectOutputStream(this.clientSocket.getOutputStream());
+            in = new ObjectInputStream(this.clientSocket.getInputStream());
         } catch (IOException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -36,15 +41,44 @@ public class Client extends Thread {
 
     @Override
     public void run() {
-        while(!end) {
+        while (!end) {
             try {
-                String message = (String) in.readObject();
-                System.out.println(message);
+                Request request = (Request) in.readObject();
+                Response response = new Response();
+                switch (request.getOperation()) {
+                    case CREATE_GAME:
+                        break;
+                    case END:
+                        break;
+                    case LOGIN:
+                        response = Controller.getInstance().login(request);
+                        login(response);
+                        break;
+                }
+                sendResponse(response);
             } catch (Exception ex) {
                 end = true;
                 System.out.println("Client closed connection.");
 //                Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+    }
+
+    private void login(Response controllerResponse) {
+        controllerResponse.setOperation(Operation.LOGIN);
+        if (controllerResponse.getUser() != null) {
+            controllerResponse.setResponseStatus(ResponseStatus.OK);
+        } else {
+            controllerResponse.setResponseStatus(ResponseStatus.ERROR);
+        }
+
+    }
+
+    private void sendResponse(Response response) {
+        try {
+            out.writeObject(response);
+        } catch (IOException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

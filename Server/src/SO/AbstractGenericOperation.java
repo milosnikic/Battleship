@@ -8,6 +8,8 @@ package SO;
 import DatabaseBroker.DatabaseBroker;
 import DatabaseBroker.IDatabaseBroker;
 import domain.GeneralDObject;
+import transfer.Request;
+import transfer.Response;
 
 /**
  *
@@ -31,4 +33,5 @@ public abstract class AbstractGenericOperation {
     }
 
     abstract public boolean executeSO();
+
 }

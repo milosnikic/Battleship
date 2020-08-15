@@ -14,6 +14,7 @@ import javax.xml.bind.annotation.XmlType;
  * &lt;simpleType name="operation">
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
  *     &lt;enumeration value="LOGIN"/>
+ *     &lt;enumeration value="CREATE_GAME"/>
  *     &lt;enumeration value="END"/>
  *   &lt;/restriction>
  * &lt;/simpleType>
@@ -25,6 +26,7 @@ import javax.xml.bind.annotation.XmlType;
 public enum Operation {
 
     LOGIN,
+    CREATE_GAME,
     END;
 
     public String value() {

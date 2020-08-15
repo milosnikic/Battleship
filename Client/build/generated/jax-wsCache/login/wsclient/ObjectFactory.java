@@ -59,11 +59,27 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link FieldStateArray }
+     * 
+     */
+    public FieldStateArray createFieldStateArray() {
+        return new FieldStateArray();
+    }
+
+    /**
      * Create an instance of {@link Response }
      * 
      */
     public Response createResponse() {
         return new Response();
+    }
+
+    /**
+     * Create an instance of {@link Map }
+     * 
+     */
+    public Map createMap() {
+        return new Map();
     }
 
     /**

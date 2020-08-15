@@ -5,6 +5,7 @@
  */
 package transfer;
 
+import domain.Map;
 import domain.User;
 import java.io.Serializable;
 import util.Operation;
@@ -16,9 +17,18 @@ import util.Operation;
 public class Request implements Serializable {
 
     private User user;
+    private Map map;
     private Operation operation;
 
     public Request() {
+    }
+
+    public Map getMap() {
+        return map;
+    }
+
+    public void setMap(Map map) {
+        this.map = map;
     }
 
     public User getUser() {

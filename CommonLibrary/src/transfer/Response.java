@@ -5,6 +5,7 @@
  */
 package transfer;
 
+import domain.ResponseStatus;
 import domain.User;
 import java.io.Serializable;
 import util.Operation;
@@ -17,8 +18,17 @@ public class Response implements Serializable {
 
     private User user;
     private Operation operation;
+    private ResponseStatus responseStatus;
 
     public Response() {
+    }
+
+    public ResponseStatus getResponseStatus() {
+        return responseStatus;
+    }
+
+    public void setResponseStatus(ResponseStatus responseStatus) {
+        this.responseStatus = responseStatus;
     }
 
     public User getUser() {

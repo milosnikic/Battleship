@@ -17,6 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="operation" type="{http://ws/}operation" minOccurs="0"/>
+ *         &lt;element name="responseStatus" type="{http://ws/}responseStatus" minOccurs="0"/>
  *         &lt;element name="user" type="{http://ws/}user" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -29,11 +30,13 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "response", propOrder = {
     "operation",
+    "responseStatus",
     "user"
 })
 public class Response {
 
     protected Operation operation;
+    protected ResponseStatus responseStatus;
     protected User user;
 
     /**
@@ -58,6 +61,30 @@ public class Response {
      */
     public void setOperation(Operation value) {
         this.operation = value;
+    }
+
+    /**
+     * Gets the value of the responseStatus property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link ResponseStatus }
+     *     
+     */
+    public ResponseStatus getResponseStatus() {
+        return responseStatus;
+    }
+
+    /**
+     * Sets the value of the responseStatus property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link ResponseStatus }
+     *     
+     */
+    public void setResponseStatus(ResponseStatus value) {
+        this.responseStatus = value;
     }
 
     /**

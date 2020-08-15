@@ -54,13 +54,15 @@ public class Controller {
             }
 
             try {
-                // We close login screen
-                this.document.getStage().close();
+                this.document.stage.close();
+
                 // We check if credentials are ok we go and close this stage, and
                 // call a new JavaFX form
                 MainMenu mainMenu = new MainMenu();
                 Stage s = new Stage();
+                mainMenu.setUser(username, password);
                 mainMenu.start(s);
+
             } catch (IOException ex) {
                 // Error creating stage
                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
