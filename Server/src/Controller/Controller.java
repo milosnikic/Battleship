@@ -6,6 +6,7 @@
 package Controller;
 
 import SO.AbstractGenericOperation;
+import SO.CreateGameSO;
 import SO.LoginSO;
 import transfer.Request;
 import transfer.Response;
@@ -33,6 +34,11 @@ public class Controller {
     public Response login(Request request) {
         so = new LoginSO();
         return ((LoginSO) so).login(request);
+    }
+
+    public Response createGame(Request request) {
+        so = new CreateGameSO();
+        return ((CreateGameSO) so).createGame(request);
     }
 
 }

@@ -12,5 +12,7 @@ package util;
 public enum Operation {
     LOGIN,
     CREATE_GAME,
+    START_GAME,
+    SHOOT,
     END
 }

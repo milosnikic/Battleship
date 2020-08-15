@@ -5,7 +5,8 @@
  */
 package transfer;
 
-import domain.ResponseStatus;
+import domain.Map;
+import util.ResponseStatus;
 import domain.User;
 import java.io.Serializable;
 import util.Operation;
@@ -19,8 +20,26 @@ public class Response implements Serializable {
     private User user;
     private Operation operation;
     private ResponseStatus responseStatus;
+    private Map map;
+    private boolean userPlaying;
 
     public Response() {
+    }
+
+    public boolean isUserPlaying() {
+        return userPlaying;
+    }
+
+    public void setUserPlaying(boolean userPlaying) {
+        this.userPlaying = userPlaying;
+    }
+
+    public Map getMap() {
+        return map;
+    }
+
+    public void setMap(Map map) {
+        this.map = map;
     }
 
     public ResponseStatus getResponseStatus() {

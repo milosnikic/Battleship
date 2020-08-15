@@ -28,7 +28,7 @@ public class Game extends GeneralDObject implements Serializable {
         idGame = 0;
         idUser = 0;
         idWinner = 0;
-        end = true;
+        end = false;
         numberOfFieldsLeft = 0;
         numberOfFieldsHit = 0;
         score = 0;
@@ -120,7 +120,7 @@ public class Game extends GeneralDObject implements Serializable {
 
     @Override
     public String getAtrValue() {
-        return idGame + ", " + idUser + ", " + idWinner + ", " + end + ", " + numberOfFieldsLeft + ", " + numberOfFieldsHit + ", " + score;
+        return idUser + ", " + idWinner + ", " + end + ", " + numberOfFieldsLeft + ", " + numberOfFieldsHit + ", " + score;
     }
 
     @Override

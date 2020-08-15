@@ -5,11 +5,13 @@
  */
 package domain;
 
+import java.io.Serializable;
+
 /**
  *
  * @author milos
  */
-public class Coordinates {
+public class Coordinates implements Serializable{
 
     private int row;
     private int col;

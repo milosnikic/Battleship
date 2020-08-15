@@ -6,7 +6,8 @@
 package Threads;
 
 import Controller.Controller;
-import domain.ResponseStatus;
+import domain.Map;
+import util.ResponseStatus;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -27,6 +28,7 @@ public class Client extends Thread {
     private ObjectInputStream in;
     private boolean end = false;
     private Socket clientSocket;
+    private Map map;
 
     public Client(Socket clientSocket) {
         try {
@@ -47,6 +49,8 @@ public class Client extends Thread {
                 Response response = new Response();
                 switch (request.getOperation()) {
                     case CREATE_GAME:
+                        response = Controller.getInstance().createGame(request);
+                        createGame(response);
                         break;
                     case END:
                         break;
@@ -79,6 +83,13 @@ public class Client extends Thread {
             out.writeObject(response);
         } catch (IOException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void createGame(Response response) {
+        if(response.getResponseStatus() == ResponseStatus.OK) {
+            map = new Map();
+            System.out.println("Map created!");
         }
     }
 }

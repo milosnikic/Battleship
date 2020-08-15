@@ -6,6 +6,7 @@
 package gui;
 
 import communication.ConnectionHandler;
+import domain.Ship;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
@@ -48,7 +49,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     public Label statusLbl;
     @FXML
-    public ComboBox<String> shipsList;
+    public ComboBox<Ship> shipsList;
 
     public Stage getStage() {
         return stage;

@@ -40,12 +40,12 @@ public class OperationHandler extends Thread {
                         break;
                     case END:
                         Platform.runLater(() -> {
-                            controller.exit();
+//                            controller.exit(finalResponse);
                         });
                         break;
                     case CREATE_GAME:
                         Platform.runLater(() -> {
-                            controller.newGame();
+                            controller.createGame(finalResponse);
                         });
                         break;
                 }
