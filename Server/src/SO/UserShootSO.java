@@ -5,6 +5,7 @@
  */
 package SO;
 
+import Threads.Client;
 import domain.Map;
 import transfer.Request;
 import transfer.Response;
@@ -19,11 +20,9 @@ public class UserShootSO extends AbstractGenericOperation {
 
     private Response response;
     private Request request;
-    private Map serverMap;
 
-    public Response userShoot(Request request, Map serverMap) {
+    public Response userShoot(Request request) {
         this.request = request;
-        this.serverMap = serverMap;
         this.response = new Response();
         abstractExecuteSO();
         return response;
@@ -31,10 +30,13 @@ public class UserShootSO extends AbstractGenericOperation {
 
     @Override
     public boolean executeSO() {
-        Boolean hit = serverMap.updateMapWithShot(request.getCoordinates());
+        Boolean hit = Client.serverMap.updateMapWithShot(request.getCoordinates());
         this.response.setHit(hit);
         this.response.setOperation(Operation.USER_SHOOT);
         this.response.setCoordinates(this.request.getCoordinates());
+        this.response.setShip(hit ? Client.serverMap.getShipAt(
+                this.request.getCoordinates().getRow(),
+                this.request.getCoordinates().getCol()) : null);
         this.response.setResponseStatus(ResponseStatus.OK);
         this.response.setUserPlaying(hit);
         return true;

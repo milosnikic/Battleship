@@ -18,17 +18,17 @@ public class Ship implements Serializable {
     private Coordinates coordinates;
     private int length;
     private boolean vertical;
-
-    public Ship() {
-    }
+    private int fieldsAlive;
 
     public Ship(int length) {
         this.length = length;
+        this.fieldsAlive = length;
     }
 
     public Ship(String name, int length) {
         this.name = name;
         this.length = length;
+        this.fieldsAlive = length;
     }
 
     public Ship(String name, Coordinates coordinates, int length, boolean vertical) {
@@ -36,6 +36,11 @@ public class Ship implements Serializable {
         this.coordinates = coordinates;
         this.length = length;
         this.vertical = vertical;
+        this.fieldsAlive = length;
+    }
+
+    public int getFieldsAlive() {
+        return fieldsAlive;
     }
 
     public Coordinates getCoordinates() {
@@ -68,6 +73,16 @@ public class Ship implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isAlive() {
+        return fieldsAlive > 0;
+    }
+
+    public void hit() {
+        if (isAlive()) {
+            fieldsAlive--;
+        }
     }
 
     @Override

@@ -72,11 +72,11 @@ public class StartGameSO extends AbstractGenericOperation {
         int x = ship.getCoordinates().getRow();
         if (ship.isVertical()) {
             for (int i = y; i < y + ship.getLength(); i++) {
-                serverMap.setFieldState(x, i, FieldState.SHIP);
+                serverMap.setShipAt(x, i, ship);
             }
         } else {
             for (int i = x; i < x + ship.getLength(); i++) {
-                serverMap.setFieldState(i, y, FieldState.SHIP);
+                serverMap.setShipAt(i, y, ship);
             }
         }
     }

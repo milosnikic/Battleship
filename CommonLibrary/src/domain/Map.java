@@ -6,6 +6,7 @@
 package domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -14,78 +15,95 @@ import java.util.Arrays;
  */
 public class Map implements Serializable {
 
-    private FieldState[][] grid;
+    private Ship[][] grid;
 
     public Map() {
-        grid = new FieldState[10][10];
+        grid = new Ship[10][10];
 
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                grid[i][j] = FieldState.EMPTY;
+                grid[i][j] = null;
             }
         }
     }
 
     public Map(Map otherMap) {
-        grid = new FieldState[10][10];
+        grid = new Ship[10][10];
 
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                grid[i][j] = otherMap.getFieldState(i, j);
+                grid[i][j] = otherMap.getShipAt(i, j);
             }
         }
     }
 
-    public FieldState[][] getGrid() {
+    public Ship[][] getGrid() {
         return grid;
     }
 
-    public void setGrid(FieldState[][] newGrid) {
+    public void setGrid(Ship[][] newGrid) {
         this.grid = newGrid;
     }
 
-    public FieldState getFieldState(int row, int col) {
+    public Ship getShipAt(int row, int col) {
         return grid[row][col];
     }
 
-    public void setFieldState(int row, int col, FieldState newFieldState) {
-        grid[row][col] = newFieldState;
+    public void setShipAt(int row, int col, Ship ship) {
+        grid[row][col] = ship;
     }
-    
+
     /**
      * Method is used to count fields with specified state
+     *
      * @param fieldState state to be counted
      * @return number of fields satisfying condition
      */
     public int countFields(FieldState fieldState) {
-        int result = 0;
-        for (FieldState[] fsRow : grid) {
-            for (FieldState fs : fsRow) {
-                if (fs == fieldState) {
-                    ++result;
+        ArrayList<Ship> aliveShips = new ArrayList<>();
+        int fieldsAlive = 0;
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                Ship ship = grid[i][j];
+                if (!aliveShips.contains(ship) && ship.isAlive()) {
+                    aliveShips.add(ship);
+                    fieldsAlive += ship.getFieldsAlive();
                 }
             }
         }
 
-        return result;
+        return fieldsAlive;
     }
 
     public Boolean updateMapWithShot(Coordinates coordinates) {
         int row = coordinates.getRow();
         int col = coordinates.getCol();
 
-        FieldState fs = getFieldState(row, col);
-        if (fs == FieldState.EMPTY) {
-            setFieldState(row, col, FieldState.SHOT);
-            return false;
-        }
-
-        if (fs == FieldState.SHIP) {
-            setFieldState(row, col, FieldState.HIT);
+        Ship ship = getShipAt(row, col);
+        if (ship != null) {
+            ship.hit();
             return true;
         }
 
-        return null;
+        return false;
+    }
+
+    /**
+     * Method is used to count number of ships alive
+     *
+     * @return number of ships alive
+     */
+    public int getNumberOfShipsAlive() {
+        ArrayList<Ship> aliveShips = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                Ship ship = grid[i][j];
+                if (!aliveShips.contains(ship) && ship.isAlive()) {
+                    aliveShips.add(ship);
+                }
+            }
+        }
+        return aliveShips.size();
     }
 
     @Override

@@ -8,6 +8,7 @@ package transfer;
 import domain.Coordinates;
 import domain.FieldState;
 import domain.Map;
+import domain.Ship;
 import util.ResponseStatus;
 import domain.User;
 import java.io.Serializable;
@@ -23,7 +24,8 @@ public class Response implements Serializable {
     private Operation operation;
     private ResponseStatus responseStatus;
     private Boolean hit;
-    private boolean userPlaying;
+    private Ship ship;
+    private Boolean userPlaying;
     private Coordinates coordinates;
     private Map map;
 
@@ -46,11 +48,19 @@ public class Response implements Serializable {
         this.coordinates = coordinates;
     }
 
-    public boolean isUserPlaying() {
+    public Ship getShip() {
+        return ship;
+    }
+
+    public void setShip(Ship ship) {
+        this.ship = ship;
+    }
+
+    public Boolean getUserPlaying() {
         return userPlaying;
     }
 
-    public void setUserPlaying(boolean userPlaying) {
+    public void setUserPlaying(Boolean userPlaying) {
         this.userPlaying = userPlaying;
     }
 

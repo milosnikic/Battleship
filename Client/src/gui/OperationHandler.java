@@ -58,6 +58,11 @@ public class OperationHandler extends Thread {
                             controller.userShoot(finalResponse);
                         });
                         break;
+                    case SERVER_SHOOT:
+                        Platform.runLater(() -> {
+                            controller.serverShoot(finalResponse);
+                        });
+                        break;
 
                 }
             }

@@ -28,8 +28,8 @@ public class Client extends Thread {
     private ObjectInputStream in;
     private boolean end = false;
     private Socket clientSocket;
-    private Map serverMap;
-    private Map userMap;
+    public static Map serverMap;
+    public static Map userMap;
 
     public Client(Socket clientSocket) {
         try {
@@ -60,10 +60,14 @@ public class Client extends Thread {
                     case START_GAME:
                         startGame(request);
                         response = Controller.getInstance().startGame(request);
-                        serverMap = response.getMap();
+                        Client.serverMap = response.getMap();
                         break;
                     case USER_SHOOT:
-                        response = Controller.getInstance().userShoot(request, serverMap);
+                        response = Controller.getInstance().userShoot(request);
+                        break;
+                    case SERVER_SHOOT:
+                        response = Controller.getInstance().serverShoot(request);
+                        break;
                     case END:
                         break;
                 }
