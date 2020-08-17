@@ -59,11 +59,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link FieldStateArray }
+     * Create an instance of {@link ShipArray }
      * 
      */
-    public FieldStateArray createFieldStateArray() {
-        return new FieldStateArray();
+    public ShipArray createShipArray() {
+        return new ShipArray();
     }
 
     /**
@@ -72,6 +72,22 @@ public class ObjectFactory {
      */
     public Response createResponse() {
         return new Response();
+    }
+
+    /**
+     * Create an instance of {@link Coordinates }
+     * 
+     */
+    public Coordinates createCoordinates() {
+        return new Coordinates();
+    }
+
+    /**
+     * Create an instance of {@link Ship }
+     * 
+     */
+    public Ship createShip() {
+        return new Ship();
     }
 
     /**

@@ -22,19 +22,19 @@ import util.Ships;
  * @author milos
  */
 public class StartGameSO extends AbstractGenericOperation {
-    
+
     private LinkedList<Ship> ships = Ships.getShips();
     private Response response;
     private Request request;
     private boolean userPlaying;
-    
+
     public Response startGame(Request request) {
         this.request = request;
         this.response = new Response();
         abstractExecuteSO();
         return response;
     }
-    
+
     @Override
     public boolean executeSO() {
         Map serverMap = new Map();
@@ -45,13 +45,13 @@ public class StartGameSO extends AbstractGenericOperation {
         this.response.setUserPlaying(userPlaying);
         return true;
     }
-    
+
     private void initializeServerMap(Map serverMap) {
         for (int i = 0; i < ships.size(); i++) {
             placeShip(ships.get(i), serverMap);
         }
     }
-    
+
     private boolean placeShip(Ship ship, Map serverMap) {
         Random random = new Random();
         do {
@@ -66,11 +66,11 @@ public class StartGameSO extends AbstractGenericOperation {
         setMapFields(ship, serverMap);
         return true;
     }
-    
+
     private void setMapFields(Ship ship, Map serverMap) {
         int y = ship.getCoordinates().getCol();
         int x = ship.getCoordinates().getRow();
-        if (ship.isVertical()) {
+        if (!ship.isVertical()) {
             for (int i = y; i < y + ship.getLength(); i++) {
                 serverMap.setShipAt(x, i, ship);
             }
@@ -80,5 +80,5 @@ public class StartGameSO extends AbstractGenericOperation {
             }
         }
     }
-    
+
 }

@@ -6,7 +6,6 @@
 package util;
 
 import domain.Coordinates;
-import domain.FieldState;
 import domain.Map;
 import domain.Ship;
 import java.util.LinkedList;
@@ -37,13 +36,19 @@ public class Ships {
         if (!ships.isEmpty()) {
             int y = ship.getCoordinates().getCol();
             int x = ship.getCoordinates().getRow();
-            if (ship.isVertical()) {
+
+            if (!ship.isVertical()) {
                 for (int i = y; i < y + ship.getLength(); i++) {
                     if (!isValidPoint(new Coordinates(x, i))) {
                         return false;
                     }
                     if (yourMap.getShipAt(x, i) != null) {
                         return false;
+                    }
+                    for (Ship neighbour : getNeighbours(x, i, yourMap)) {
+                        if (neighbour != null && neighbour != ship) {
+                            return false;
+                        }
                     }
                 }
             } else {
@@ -54,15 +59,59 @@ public class Ships {
                     if (yourMap.getShipAt(i, y) != null) {
                         return false;
                     }
+                    for (Ship neighbour : getNeighbours(i, y, yourMap)) {
+                        if (neighbour != null && neighbour != ship) {
+                            return false;
+                        }
+                    }
                 }
             }
             return true;
+
         }
         return false;
     }
 
-    public static boolean isValidPoint(Coordinates coordinates) {
+    private static boolean isValidPoint(Coordinates coordinates) {
         return coordinates.getRow() >= 0 && coordinates.getRow() < 10
                 && coordinates.getCol() >= 0 && coordinates.getCol() < 10;
+    }
+
+    private static LinkedList<Ship> getNeighbours(int row, int col, Map yourMap) {
+        LinkedList<Ship> neighbours = new LinkedList<>();
+
+        if (isValidPoint(new Coordinates(row - 1, col - 1))) {
+            Ship ship = yourMap.getShipAt(row - 1, col - 1);
+            neighbours.add(ship);
+        }
+        if (isValidPoint(new Coordinates(row - 1, col + 1))) {
+            Ship ship = yourMap.getShipAt(row - 1, col + 1);
+            neighbours.add(ship);
+        }
+        if (isValidPoint(new Coordinates(row - 1, col))) {
+            Ship ship = yourMap.getShipAt(row - 1, col);
+            neighbours.add(ship);
+        }
+        if (isValidPoint(new Coordinates(row + 1, col))) {
+            Ship ship = yourMap.getShipAt(row + 1, col);
+            neighbours.add(ship);
+        }
+        if (isValidPoint(new Coordinates(row, col - 1))) {
+            Ship ship = yourMap.getShipAt(row, col - 1);
+            neighbours.add(ship);
+        }
+        if (isValidPoint(new Coordinates(row, col + 1))) {
+            Ship ship = yourMap.getShipAt(row, col + 1);
+            neighbours.add(ship);
+        }
+        if (isValidPoint(new Coordinates(row + 1, col + 1))) {
+            Ship ship = yourMap.getShipAt(row + 1, col + 1);
+            neighbours.add(ship);
+        }
+        if (isValidPoint(new Coordinates(row + 1, col - 1))) {
+            Ship ship = yourMap.getShipAt(row + 1, col - 1);
+            neighbours.add(ship);
+        }
+        return neighbours;
     }
 }

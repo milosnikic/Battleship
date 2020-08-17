@@ -15,7 +15,7 @@ import javafx.event.EventHandler;
  */
 public class ExitHandler implements EventHandler {
 
-    Controller controller;
+    private Controller controller;
 
     public ExitHandler(Controller controller) {
         this.controller = controller;

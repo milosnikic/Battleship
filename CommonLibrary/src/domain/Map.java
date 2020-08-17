@@ -59,13 +59,13 @@ public class Map implements Serializable {
      * @param fieldState state to be counted
      * @return number of fields satisfying condition
      */
-    public int countFields(FieldState fieldState) {
+    public int countAliveFields() {
         ArrayList<Ship> aliveShips = new ArrayList<>();
         int fieldsAlive = 0;
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 Ship ship = grid[i][j];
-                if (!aliveShips.contains(ship) && ship.isAlive()) {
+                if (ship != null && ship.isAlive() && !aliveShips.contains(ship)) {
                     aliveShips.add(ship);
                     fieldsAlive += ship.getFieldsAlive();
                 }
@@ -98,7 +98,7 @@ public class Map implements Serializable {
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 Ship ship = grid[i][j];
-                if (!aliveShips.contains(ship) && ship.isAlive()) {
+                if (ship != null && ship.isAlive() && !aliveShips.contains(ship)) {
                     aliveShips.add(ship);
                 }
             }
@@ -118,5 +118,14 @@ public class Map implements Serializable {
         Map map = (Map) o;
 
         return Arrays.deepEquals(getGrid(), map.getGrid());
+    }
+
+    public void printMap() {
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                System.out.print(grid[i][j] != null ? 1 + "\t" : 0 + "\t");
+            }
+            System.out.println();
+        }
     }
 }

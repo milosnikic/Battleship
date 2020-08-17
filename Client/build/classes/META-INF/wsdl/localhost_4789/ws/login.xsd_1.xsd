@@ -12,15 +12,30 @@
 
 <xs:complexType name="request">
 <xs:sequence>
+<xs:element name="coordinates" type="tns:coordinates" minOccurs="0"></xs:element>
 <xs:element name="map" type="tns:map" minOccurs="0"></xs:element>
 <xs:element name="operation" type="tns:operation" minOccurs="0"></xs:element>
 <xs:element name="user" type="tns:user" minOccurs="0"></xs:element>
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="coordinates">
+<xs:sequence></xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="map">
 <xs:sequence>
-<xs:element name="grid" type="tns:fieldStateArray" nillable="true" minOccurs="0" maxOccurs="unbounded"></xs:element>
+<xs:element name="grid" type="tns:shipArray" nillable="true" minOccurs="0" maxOccurs="unbounded"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="ship">
+<xs:sequence>
+<xs:element name="coordinates" type="tns:coordinates" minOccurs="0"></xs:element>
+<xs:element name="fieldsAlive" type="xs:int"></xs:element>
+<xs:element name="length" type="xs:int"></xs:element>
+<xs:element name="name" type="xs:string" minOccurs="0"></xs:element>
+<xs:element name="vertical" type="xs:boolean"></xs:element>
 </xs:sequence>
 </xs:complexType>
 
@@ -48,25 +63,24 @@
 
 <xs:complexType name="response">
 <xs:sequence>
+<xs:element name="coordinates" type="tns:coordinates" minOccurs="0"></xs:element>
+<xs:element name="hit" type="xs:boolean" minOccurs="0"></xs:element>
+<xs:element name="map" type="tns:map" minOccurs="0"></xs:element>
 <xs:element name="operation" type="tns:operation" minOccurs="0"></xs:element>
 <xs:element name="responseStatus" type="tns:responseStatus" minOccurs="0"></xs:element>
+<xs:element name="ship" type="tns:ship" minOccurs="0"></xs:element>
 <xs:element name="user" type="tns:user" minOccurs="0"></xs:element>
+<xs:element name="userPlaying" type="xs:boolean" minOccurs="0"></xs:element>
 </xs:sequence>
 </xs:complexType>
-
-<xs:simpleType name="fieldState">
-<xs:restriction base="xs:string">
-<xs:enumeration value="EMPTY"></xs:enumeration>
-<xs:enumeration value="SHIP"></xs:enumeration>
-<xs:enumeration value="SHOT"></xs:enumeration>
-<xs:enumeration value="HIT"></xs:enumeration>
-</xs:restriction>
-</xs:simpleType>
 
 <xs:simpleType name="operation">
 <xs:restriction base="xs:string">
 <xs:enumeration value="LOGIN"></xs:enumeration>
 <xs:enumeration value="CREATE_GAME"></xs:enumeration>
+<xs:enumeration value="START_GAME"></xs:enumeration>
+<xs:enumeration value="USER_SHOOT"></xs:enumeration>
+<xs:enumeration value="SERVER_SHOOT"></xs:enumeration>
 <xs:enumeration value="END"></xs:enumeration>
 </xs:restriction>
 </xs:simpleType>
@@ -78,9 +92,9 @@
 </xs:restriction>
 </xs:simpleType>
 
-<xs:complexType name="fieldStateArray" final="#all">
+<xs:complexType name="shipArray" final="#all">
 <xs:sequence>
-<xs:element name="item" type="tns:fieldState" minOccurs="0" maxOccurs="unbounded" nillable="true"></xs:element>
+<xs:element name="item" type="tns:ship" minOccurs="0" maxOccurs="unbounded" nillable="true"></xs:element>
 </xs:sequence>
 </xs:complexType>
 </xs:schema>

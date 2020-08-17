@@ -22,7 +22,6 @@ public class Ship implements Serializable {
 
     public Ship(int length) {
         this.length = length;
-        this.fieldsAlive = length;
     }
 
     public Ship(String name, int length) {
@@ -31,63 +30,33 @@ public class Ship implements Serializable {
         this.fieldsAlive = length;
     }
 
-    public Ship(String name, Coordinates coordinates, int length, boolean vertical) {
+    public Ship(String name, Coordinates coordinates, int length, boolean vertical, int fieldsAlive) {
         this.name = name;
         this.coordinates = coordinates;
         this.length = length;
         this.vertical = vertical;
-        this.fieldsAlive = length;
-    }
-
-    public int getFieldsAlive() {
-        return fieldsAlive;
-    }
-
-    public Coordinates getCoordinates() {
-        return coordinates;
-    }
-
-    public int getLength() {
-        return length;
-    }
-
-    public boolean isVertical() {
-        return vertical;
-    }
-
-    public void setCoordinates(Coordinates coordinates) {
-        this.coordinates = coordinates;
-    }
-
-    public void setLength(int length) {
-        this.length = length;
-    }
-
-    public void setVertical(boolean vertical) {
-        this.vertical = vertical;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+        this.fieldsAlive = fieldsAlive;
     }
 
     public boolean isAlive() {
-        return fieldsAlive > 0;
+        return getFieldsAlive() > 0;
     }
 
     public void hit() {
         if (isAlive()) {
-            fieldsAlive--;
+            this.setFieldsAlive(this.getFieldsAlive() - 1);
         }
     }
 
     @Override
     public String toString() {
-        return this.name;
+        return this.getName();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        return hash;
     }
 
     @Override
@@ -106,6 +75,76 @@ public class Ship implements Serializable {
             return false;
         }
         return true;
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @return the coordinates
+     */
+    public Coordinates getCoordinates() {
+        return coordinates;
+    }
+
+    /**
+     * @param coordinates the coordinates to set
+     */
+    public void setCoordinates(Coordinates coordinates) {
+        this.coordinates = coordinates;
+    }
+
+    /**
+     * @return the length
+     */
+    public int getLength() {
+        return length;
+    }
+
+    /**
+     * @param length the length to set
+     */
+    public void setLength(int length) {
+        this.length = length;
+    }
+
+    /**
+     * @return the vertical
+     */
+    public boolean isVertical() {
+        return vertical;
+    }
+
+    /**
+     * @param vertical the vertical to set
+     */
+    public void setVertical(boolean vertical) {
+        this.vertical = vertical;
+    }
+
+    /**
+     * @return the fieldsAlive
+     */
+    public int getFieldsAlive() {
+        return fieldsAlive;
+    }
+
+    /**
+     * @param fieldsAlive the fieldsAlive to set
+     */
+    public void setFieldsAlive(int fieldsAlive) {
+        this.fieldsAlive = fieldsAlive;
     }
 
 }

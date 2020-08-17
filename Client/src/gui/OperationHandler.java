@@ -32,7 +32,7 @@ public class OperationHandler extends Thread {
         try {
             while ((response = responses.take()) != null) {
                 final Response finalResponse = response;
-                switch (response.getOperation()) {
+                switch (finalResponse.getOperation()) {
                     case LOGIN:
                         Platform.runLater(() -> {
                             controller.loadUser(finalResponse);
@@ -61,6 +61,16 @@ public class OperationHandler extends Thread {
                     case SERVER_SHOOT:
                         Platform.runLater(() -> {
                             controller.serverShoot(finalResponse);
+                        });
+                        break;
+                    case SERVER_WIN:
+                        Platform.runLater(() -> {
+                            controller.serverWin(finalResponse);
+                        });
+                        break;
+                    case USER_WIN:
+                        Platform.runLater(() -> {
+                            controller.userWin(finalResponse);
                         });
                         break;
 

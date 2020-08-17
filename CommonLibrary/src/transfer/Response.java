@@ -6,7 +6,6 @@
 package transfer;
 
 import domain.Coordinates;
-import domain.FieldState;
 import domain.Map;
 import domain.Ship;
 import util.ResponseStatus;

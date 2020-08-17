@@ -6,6 +6,7 @@
 package Threads;
 
 import Controller.Controller;
+import domain.Game;
 import domain.Map;
 import util.ResponseStatus;
 import java.io.IOException;
@@ -30,6 +31,7 @@ public class Client extends Thread {
     private Socket clientSocket;
     public static Map serverMap;
     public static Map userMap;
+    public static Game game;
 
     public Client(Socket clientSocket) {
         try {
@@ -39,7 +41,9 @@ public class Client extends Thread {
         } catch (IOException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
 
+    public Client() {
     }
 
     @Override
@@ -64,11 +68,14 @@ public class Client extends Thread {
                         break;
                     case USER_SHOOT:
                         response = Controller.getInstance().userShoot(request);
+                        checkForGameOver(response);
                         break;
                     case SERVER_SHOOT:
                         response = Controller.getInstance().serverShoot(request);
+                        checkForGameOver(response);
                         break;
                     case END:
+                        response = Controller.getInstance().endGame(request);
                         break;
                 }
                 sendResponse(response);
@@ -107,6 +114,16 @@ public class Client extends Thread {
 
     private void startGame(Request request) {
         this.userMap = request.getMap();
+    }
+
+    private void checkForGameOver(Response response) {
+        // We check if user or server won
+        if (Client.serverMap.getNumberOfShipsAlive() == 0) {
+            response.setOperation(Operation.USER_WIN);
+        }
+        if (Client.userMap.getNumberOfShipsAlive() == 0) {
+            response.setOperation(Operation.SERVER_WIN);
+        }
     }
 
 }

@@ -7,6 +7,7 @@ package Controller;
 
 import SO.AbstractGenericOperation;
 import SO.CreateGameSO;
+import SO.EndGameSO;
 import SO.LoginSO;
 import SO.ServerShootSO;
 import SO.StartGameSO;
@@ -58,6 +59,11 @@ public class Controller {
     public Response serverShoot(Request request) {
         so = new ServerShootSO();
         return ((ServerShootSO) so).serverShoot(request);
+    }
+
+    public Response endGame(Request request) {
+        so = new EndGameSO();
+        return ((EndGameSO) so).endGame(request);
     }
 
 }
