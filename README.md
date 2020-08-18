@@ -6,4 +6,6 @@ Zadatak je implementirati popularnu igricu potapanje brodova. Takođe, za komuni
 Jedna nit služi za osluškivanje dolaznih poruka, a druga za slanje poruka. Još se koristi kreirana biblioteka koja sadrži domenske klase i klase koje
 predstavljaju protokol komunikacije klijenta i servera. 
 
+Za potrebe skladištenja podataka korišćen je SUBP MySQL.
+
 Od softverskih paterna korišćeni su Inverzija zavisnosti, Inverzija umetanja, Inverzija kontrole, "Template method pattern" i Singleton.
