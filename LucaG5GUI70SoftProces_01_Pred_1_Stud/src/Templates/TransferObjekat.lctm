@@ -1,0 +1,32 @@
+#1 /* ~f dk.java 
+ * @autor prof. dr Sinisa Vlajic,  
+ * Univerzitet u Beogradu'
+ * Fakultet organizacionih nauka 
+ * Katedra za softversko inzenjerstvo 
+ * Laboratorija za softversko inzenjerstvo 
+#1 * Datum:~f dte 
+ */ 
+ /*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package TransferObjekat;
+
+
+
+import DomenskeKlase.*;
+import java.io.Serializable;
+
+public class TransferObjekat implements Serializable{
+#1   public ~f dk gdo; 
+   public String poruka;
+   public boolean signal; // signal o uspesnosti izvrsenja operacije.
+   public int currentRecord = -1;
+      
+#1   public void postaviDK(GeneralDObject gdo)  {this.gdo = (~f dk) gdo;}
+   public String vratiPoruka(){return poruka;}
+   public boolean vratiSignal(){return signal;} 
+   public GeneralDObject vratiDK(){return (GeneralDObject) gdo;}
+   public void postaviSignal(boolean signal) {this.signal = signal;}
+}

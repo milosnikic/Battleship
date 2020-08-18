@@ -73,6 +73,10 @@ public class OperationHandler extends Thread {
                             controller.userWin(finalResponse);
                         });
                         break;
+                    case SCOREBOARD:
+                        Platform.runLater(() -> {
+                            controller.showScoreboard(finalResponse);
+                        });
 
                 }
             }

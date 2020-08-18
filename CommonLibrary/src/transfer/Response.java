@@ -6,11 +6,14 @@
 package transfer;
 
 import domain.Coordinates;
+import domain.Game;
 import domain.Map;
+import domain.RankItem;
 import domain.Ship;
 import util.ResponseStatus;
 import domain.User;
 import java.io.Serializable;
+import java.util.List;
 import util.Operation;
 
 /**
@@ -27,8 +30,17 @@ public class Response implements Serializable {
     private Boolean userPlaying;
     private Coordinates coordinates;
     private Map map;
+    private List<RankItem> rankList;
 
     public Response() {
+    }
+
+    public List<RankItem> getRankList() {
+        return rankList;
+    }
+
+    public void setRankList(List<RankItem> rankList) {
+        this.rankList = rankList;
     }
 
     public Map getMap() {

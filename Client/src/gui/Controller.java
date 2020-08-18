@@ -8,14 +8,20 @@ package gui;
 import communication.ConnectionHandler;
 import domain.Coordinates;
 import domain.Map;
+import domain.RankItem;
 import domain.Ship;
 import util.ResponseStatus;
 import domain.User;
 import gui.handlers.AuthorInformationHandler;
 import gui.handlers.ExitHandler;
 import gui.handlers.NewGameHandler;
+import gui.handlers.RulesHandler;
+import gui.handlers.ScoreboardHandler;
 import gui.handlers.SelectShip;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.LinkedList;
+import java.util.Properties;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -67,6 +73,8 @@ public class Controller {
         this.document.authorInformation.setOnAction(new AuthorInformationHandler(this));
         this.document.shipsList.setOnAction(new SelectShip(this));
         this.document.exitGame.setOnAction(new ExitHandler(this));
+        this.document.scoreboard.setOnAction(new ScoreboardHandler(this));
+        this.document.rules.setOnAction(new RulesHandler(this));
     }
     
     public void exit() {
@@ -449,5 +457,37 @@ public class Controller {
         serverMap.getChildren().forEach((node) -> {
             node.setStyle("-fx-background-color:none");
         });
+    }
+    
+    public void getScoreboard() {
+        Request request = new Request();
+        request.setOperation(Operation.SCOREBOARD);
+        connectionHandler.getRequests().add(request);
+    }
+    
+    void showScoreboard(Response finalResponse) {
+        if (finalResponse.getResponseStatus() == ResponseStatus.OK) {
+            String temp = "No.\tUsername\tScore\n";
+            LinkedList<RankItem> rankList = (LinkedList<RankItem>) finalResponse.getRankList();
+            int counter = 1;
+            for (RankItem rankItem : rankList) {
+                temp += counter++ + ".\t" + rankItem.getUser().getUsername() + "\t\t" + rankItem.getGame().getscore() + "\n";
+            }
+            Messages.showInformation(temp);
+        } else {
+            Messages.showError("Problem prilikom dovlacenja podataka o rang listi.");
+        }
+    }
+
+    public void showRules() {
+        try {
+            InputStream in = new FileInputStream("src/assets/rules.properties");
+            Properties prop = new Properties();
+            prop.load(in);
+            String text = prop.getProperty("text");
+            Messages.showInformation(text);
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
     }
 }

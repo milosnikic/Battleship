@@ -9,6 +9,7 @@ import SO.AbstractGenericOperation;
 import SO.CreateGameSO;
 import SO.EndGameSO;
 import SO.LoginSO;
+import SO.ScoreboardSO;
 import SO.ServerShootSO;
 import SO.StartGameSO;
 import SO.UserShootSO;
@@ -64,6 +65,11 @@ public class Controller {
     public Response endGame(Request request) {
         so = new EndGameSO();
         return ((EndGameSO) so).endGame(request);
+    }
+
+    public Response scoreboard(Request request) {
+        so = new ScoreboardSO();
+        return ((ScoreboardSO) so).getScoreboard(request);
     }
 
 }

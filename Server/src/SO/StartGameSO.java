@@ -55,7 +55,7 @@ public class StartGameSO extends AbstractGenericOperation {
     private boolean placeShip(Ship ship, Map serverMap) {
         Random random = new Random();
         do {
-            userPlaying = random.nextDouble() > 0.5;
+//            userPlaying = random.nextDouble() > 0.5;
             int row = random.nextInt(10);
             int col = random.nextInt(10);
             boolean vertical = random.nextDouble() > 0.5;

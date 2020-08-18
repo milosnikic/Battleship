@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.paint.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+ 
+<AnchorPane id="AnchorPane" prefHeight="390.0" prefWidth="443.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ssfx1.FXMLDocumentController">
+    <children>
+      <MenuBar fx:id="MainMenu" layoutX="1.0" layoutY="2.0" prefHeight="25.0" prefWidth="435.0">
+        <menus>
+  <Menu fx:id="game" mnemonicParsing="false" text="Igra ">
+  
+               <items>
+  
+            <MenuItem fx:id="newGame" mnemonicParsing="false" onAction="#newGame" text="New game" />  
+               </items>
+  
+          </Menu>           
+  <Menu fx:id="gameRules" mnemonicParsing="false" text="Pravila igre ">
+  
+               <items>
+  
+            <MenuItem fx:id="rules" mnemonicParsing="false" onAction="#showRules" text="Prikazi pravila" />  
+            <MenuItem fx:id="authorInformation" mnemonicParsing="false" onAction="#showAuthorInformation" text="Autor programa" />  
+            <MenuItem fx:id="scoreboard" mnemonicParsing="false" onAction="#showScoreboard" text="Rang lista" />  
+               </items>
+  
+          </Menu>           
+  <Menu fx:id="exitGame" mnemonicParsing="false" text="Izlaz iz programa ">
+  
+               <items>
+  
+            <MenuItem fx:id="exit" mnemonicParsing="false" onAction="#exitGame" text="Izlaz" />  
+               </items>
+  
+          </Menu>           
+        </menus>
+      </MenuBar>
+    </children>
+</AnchorPane>

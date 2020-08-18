@@ -77,6 +77,9 @@ public class Client extends Thread {
                     case END:
                         response = Controller.getInstance().endGame(request);
                         break;
+                    case SCOREBOARD:
+                        response = Controller.getInstance().scoreboard(request);
+                        break;
                 }
                 sendResponse(response);
             } catch (Exception ex) {

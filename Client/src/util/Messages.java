@@ -28,7 +28,7 @@ public class Messages {
     public static void showSuccess(String message) {
         Alert infoAlert;
         infoAlert = new Alert(Alert.AlertType.INFORMATION);
-        infoAlert.setTitle("Obavestenje");
+        infoAlert.setTitle("Uspelo");
         infoAlert.setHeaderText(null);
         infoAlert.setContentText(message);
         infoAlert.showAndWait();
@@ -53,5 +53,15 @@ public class Messages {
         ButtonType buttonTypeCancel = new ButtonType("Izlaz", ButtonBar.ButtonData.CANCEL_CLOSE);
         alert.getButtonTypes().setAll(buttonTypeCancel);
         Optional<ButtonType> result = alert.showAndWait();
+    }
+    
+    public static void showInformation(String message) {
+        Alert infoAlert;
+        infoAlert = new Alert(Alert.AlertType.NONE);
+        infoAlert.setTitle("Obavestenje");
+        infoAlert.setHeaderText(null);
+        infoAlert.setContentText(message);
+        infoAlert.getDialogPane().getButtonTypes().add(ButtonType.OK);
+        infoAlert.showAndWait();
     }
 }

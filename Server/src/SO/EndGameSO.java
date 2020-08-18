@@ -44,13 +44,13 @@ public class EndGameSO extends AbstractGenericOperation {
                 // 20 is number of total fields
                 gameReflection.setnumberOfFieldsHit(20 - Client.serverMap.countAliveFields());
                 gameReflection.setnumberOfFieldsLeft(Client.serverMap.countAliveFields());
-                gameReflection.setscore((20 - Client.serverMap.countAliveFields()) * 5);
+                gameReflection.setscore(Client.serverMap.countAliveFields() * 5 - (20 - Client.serverMap.countAliveFields()) * 2);
             } else {
                 gameReflection.setidWinner(request.getUser().getIdUser());
                 // 20 is number of total fields
-                gameReflection.setnumberOfFieldsHit(20 - Client.userMap.getNumberOfShipsAlive());
+                gameReflection.setnumberOfFieldsHit(20 - Client.userMap.countAliveFields());
                 gameReflection.setnumberOfFieldsLeft(Client.userMap.countAliveFields());
-                gameReflection.setscore((20 - Client.userMap.countAliveFields()) * 5);
+                gameReflection.setscore(Client.userMap.countAliveFields() * 5 - (20 - Client.userMap.countAliveFields()) * 2);
             }
 
             if (bbp.updateRecord(gameReflection)) {

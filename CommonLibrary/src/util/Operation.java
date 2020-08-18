@@ -17,5 +17,6 @@ public enum Operation {
     SERVER_SHOOT,
     USER_WIN,
     SERVER_WIN,
+    SCOREBOARD,
     END
 }

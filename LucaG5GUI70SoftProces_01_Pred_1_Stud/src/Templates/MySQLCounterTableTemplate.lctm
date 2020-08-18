@@ -1,0 +1,30 @@
+#1 CREATE DATABASE /*!32312 IF NOT EXISTS*/`~f dbname` /*!40100 DEFAULT CHARACTER SET utf8 */;
+
+#1 USE `~f dbname`;
+
+CREATE TABLE IF NOT EXISTS `Counter` (
+ `TableName` varchar(100)  ,
+ `Counter` int  DEFAULT 0,
+ PRIMARY KEY (`TableName`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;*/
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS `upgrade_database_counter` $$
+CREATE PROCEDURE upgrade_database_counter()
+BEGIN
+ DECLARE _count INT;
+ SET _count = (  SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS  
+#1 WHERE   TABLE_SCHEMA = '~f dbname' AND TABLE_NAME = 'Counter' AND COLUMN_NAME = 'TableName'); 
+ IF _count = 0 THEN  ALTER TABLE Counter ADD COLUMN  `TableName` varchar(100)  ; END IF; 
+   
+ SET _count = (  SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS  
+#1 WHERE   TABLE_SCHEMA = '~f dbname' AND TABLE_NAME = 'Counter' AND COLUMN_NAME = 'Counter'); 
+ IF _count = 0 THEN  ALTER TABLE Counter ADD COLUMN  `Counter` int  DEFAULT 0; END IF;
+
+#* ~a SET _count = (  SELECT COUNT(*) FROM Counter Where TableName = 'tl'); IF _count = 0 THEN   insert  into `counter`(`TableName`,`Counter`) values  ('tl',0);  END IF; 
+ 
+   
+END $$
+DELIMITER ;
+
+CALL upgrade_database_counter();

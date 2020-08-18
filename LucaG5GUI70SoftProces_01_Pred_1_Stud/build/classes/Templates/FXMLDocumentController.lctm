@@ -1,0 +1,57 @@
+/* 
+ * @autor prof. dr Sinisa Vlajic,  
+ * Univerzitet u Beogradu'
+ * Fakultet organizacionih nauka 
+ * Katedra za softversko inzenjerstvo 
+ * Laboratorija za softversko inzenjerstvo 
+#1 * Datum:~f dte poruka1
+ */
+
+package GUIKorisnik;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
+
+public class FXMLDocumentController {
+
+
+#* ~a @FXML public fxtp at;
+    
+    @FXML
+    public Button promeniDK;
+
+    @FXML
+    public Button kreirajDK;
+
+    @FXML
+    public Button obrisiDK;
+
+    @FXML
+    public Button nadjiDK;
+    
+    @FXML
+    public Button naPrvi;
+    
+    @FXML
+    public Button naSledeci;
+    
+    @FXML
+    public Button naPoslednji;
+    
+    @FXML
+    public Button naPredhodni;
+    
+    
+    public SpecificniKontrolerGUI kngui;
+    
+    @FXML
+    public void initialize() throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException, IOException, FileNotFoundException, ClassNotFoundException {
+              kngui = new SpecificniKontrolerGUI(this);
+              
+    }    
+    
+}

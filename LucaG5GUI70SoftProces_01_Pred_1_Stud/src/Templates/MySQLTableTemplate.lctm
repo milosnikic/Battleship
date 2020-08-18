@@ -1,0 +1,26 @@
+#1 CREATE DATABASE /*!32312 IF NOT EXISTS*/`~l dbname` /*!40100 DEFAULT CHARACTER SET utf8 */;
+
+#1 USE `~l dbname`;
+
+#1CREATE TABLE IF NOT EXISTS `~l tl` (
+#* ~a `at` tpMySQL sizeSQL Null defaultMySQL,
+#1  PRIMARY KEY (~a-l `aPK`,~l `aPK`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS `upgrade_database` $$
+CREATE PROCEDURE upgrade_database()
+BEGIN
+ DECLARE _count INT;
+#* ~a addColumn 
+#1 ALTER TABLE ~l tl DROP PRIMARY KEY, ADD PRIMARY KEY (~a-l `aPK`,~l `aPK`);
+
+  
+END $$
+DELIMITER ;
+
+CALL upgrade_database();
+
+
+
+
