@@ -1,0 +1,8 @@
+/Server/build/
+/CommonLibrary/nbproject/private/
+/CommonLibrary/build/
+/CommonLibrary/dist/
+/Server/dist/
+/Client/build/
+*.doc*
+LucaG5GUI70SoftProces_01_Pred_1_Stud
