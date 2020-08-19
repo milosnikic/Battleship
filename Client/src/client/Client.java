@@ -35,7 +35,6 @@ public class Client extends Application {
         stage.setTitle("Prijavljivanje na sistem");
         stage.show();
         controller.setStage(stage);
-        Messages.showError("Greska prilikom zavrsavanja igre!");
     }
 
     /**
