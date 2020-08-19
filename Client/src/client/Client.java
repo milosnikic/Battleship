@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import util.Messages;
 
 /**
  *
@@ -34,6 +35,7 @@ public class Client extends Application {
         stage.setTitle("Prijavljivanje na sistem");
         stage.show();
         controller.setStage(stage);
+        Messages.showError("Greska prilikom zavrsavanja igre!");
     }
 
     /**

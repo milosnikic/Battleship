@@ -6,7 +6,6 @@
 package transfer;
 
 import domain.Coordinates;
-import domain.Game;
 import domain.Map;
 import domain.RankItem;
 import domain.Ship;
