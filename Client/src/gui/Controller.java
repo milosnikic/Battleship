@@ -254,7 +254,6 @@ public class Controller {
     private <T> void putItemsIntoCombobox(List<T> elements) {
         ObservableList<T> options
                 = FXCollections.observableArrayList();
-
         for (T t : elements) {
             options.add(t);
         }
