@@ -59,19 +59,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ShipArray }
+     * Create an instance of {@link RankItem }
      * 
      */
-    public ShipArray createShipArray() {
-        return new ShipArray();
+    public RankItem createRankItem() {
+        return new RankItem();
     }
 
     /**
-     * Create an instance of {@link Response }
+     * Create an instance of {@link Game }
      * 
      */
-    public Response createResponse() {
-        return new Response();
+    public Game createGame() {
+        return new Game();
     }
 
     /**
@@ -88,6 +88,22 @@ public class ObjectFactory {
      */
     public Ship createShip() {
         return new Ship();
+    }
+
+    /**
+     * Create an instance of {@link ShipArray }
+     * 
+     */
+    public ShipArray createShipArray() {
+        return new ShipArray();
+    }
+
+    /**
+     * Create an instance of {@link Response }
+     * 
+     */
+    public Response createResponse() {
+        return new Response();
     }
 
     /**

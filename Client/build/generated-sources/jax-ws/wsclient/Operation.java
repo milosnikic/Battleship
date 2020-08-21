@@ -18,6 +18,9 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;enumeration value="START_GAME"/>
  *     &lt;enumeration value="USER_SHOOT"/>
  *     &lt;enumeration value="SERVER_SHOOT"/>
+ *     &lt;enumeration value="USER_WIN"/>
+ *     &lt;enumeration value="SERVER_WIN"/>
+ *     &lt;enumeration value="SCOREBOARD"/>
  *     &lt;enumeration value="END"/>
  *   &lt;/restriction>
  * &lt;/simpleType>
@@ -33,6 +36,9 @@ public enum Operation {
     START_GAME,
     USER_SHOOT,
     SERVER_SHOOT,
+    USER_WIN,
+    SERVER_WIN,
+    SCOREBOARD,
     END;
 
     public String value() {

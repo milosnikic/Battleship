@@ -67,11 +67,35 @@
 <xs:element name="hit" type="xs:boolean" minOccurs="0"></xs:element>
 <xs:element name="map" type="tns:map" minOccurs="0"></xs:element>
 <xs:element name="operation" type="tns:operation" minOccurs="0"></xs:element>
+<xs:element name="rankList" type="tns:rankItem" nillable="true" minOccurs="0" maxOccurs="unbounded"></xs:element>
 <xs:element name="responseStatus" type="tns:responseStatus" minOccurs="0"></xs:element>
 <xs:element name="ship" type="tns:ship" minOccurs="0"></xs:element>
 <xs:element name="user" type="tns:user" minOccurs="0"></xs:element>
 <xs:element name="userPlaying" type="xs:boolean" minOccurs="0"></xs:element>
 </xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="rankItem">
+<xs:sequence>
+<xs:element name="game" type="tns:game" minOccurs="0"></xs:element>
+<xs:element name="user" type="tns:user" minOccurs="0"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="game">
+<xs:complexContent>
+<xs:extension base="tns:generalDObject">
+<xs:sequence>
+<xs:element name="idGame" type="xs:int"></xs:element>
+<xs:element name="idUser" type="xs:int"></xs:element>
+<xs:element name="idWinner" type="xs:int"></xs:element>
+<xs:element name="end" type="xs:boolean"></xs:element>
+<xs:element name="numberOfFieldsLeft" type="xs:int"></xs:element>
+<xs:element name="numberOfFieldsHit" type="xs:int"></xs:element>
+<xs:element name="score" type="xs:int"></xs:element>
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
 </xs:complexType>
 
 <xs:simpleType name="operation">
@@ -81,6 +105,9 @@
 <xs:enumeration value="START_GAME"></xs:enumeration>
 <xs:enumeration value="USER_SHOOT"></xs:enumeration>
 <xs:enumeration value="SERVER_SHOOT"></xs:enumeration>
+<xs:enumeration value="USER_WIN"></xs:enumeration>
+<xs:enumeration value="SERVER_WIN"></xs:enumeration>
+<xs:enumeration value="SCOREBOARD"></xs:enumeration>
 <xs:enumeration value="END"></xs:enumeration>
 </xs:restriction>
 </xs:simpleType>

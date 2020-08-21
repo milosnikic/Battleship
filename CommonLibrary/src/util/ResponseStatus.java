@@ -5,11 +5,13 @@
  */
 package util;
 
+import java.io.Serializable;
+
 /**
  *
  * @author milos
  */
-public enum ResponseStatus {
+public enum ResponseStatus implements Serializable {
     OK,
     ERROR
 }

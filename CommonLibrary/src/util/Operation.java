@@ -5,11 +5,13 @@
  */
 package util;
 
+import java.io.Serializable;
+
 /**
  *
  * @author milos
  */
-public enum Operation {
+public enum Operation implements Serializable {
     LOGIN,
     CREATE_GAME,
     START_GAME,

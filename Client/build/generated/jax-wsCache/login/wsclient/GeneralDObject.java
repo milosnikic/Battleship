@@ -28,6 +28,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "generalDObject")
 @XmlSeeAlso({
+    Game.class,
     User.class
 })
 public abstract class GeneralDObject {

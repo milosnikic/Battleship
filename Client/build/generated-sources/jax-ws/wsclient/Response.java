@@ -1,8 +1,11 @@
 
 package wsclient;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -20,6 +23,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="hit" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *         &lt;element name="map" type="{http://ws/}map" minOccurs="0"/>
  *         &lt;element name="operation" type="{http://ws/}operation" minOccurs="0"/>
+ *         &lt;element name="rankList" type="{http://ws/}rankItem" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element name="responseStatus" type="{http://ws/}responseStatus" minOccurs="0"/>
  *         &lt;element name="ship" type="{http://ws/}ship" minOccurs="0"/>
  *         &lt;element name="user" type="{http://ws/}user" minOccurs="0"/>
@@ -38,6 +42,7 @@ import javax.xml.bind.annotation.XmlType;
     "hit",
     "map",
     "operation",
+    "rankList",
     "responseStatus",
     "ship",
     "user",
@@ -49,6 +54,8 @@ public class Response {
     protected Boolean hit;
     protected Map map;
     protected Operation operation;
+    @XmlElement(nillable = true)
+    protected List<RankItem> rankList;
     protected ResponseStatus responseStatus;
     protected Ship ship;
     protected User user;
@@ -148,6 +155,35 @@ public class Response {
      */
     public void setOperation(Operation value) {
         this.operation = value;
+    }
+
+    /**
+     * Gets the value of the rankList property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the rankList property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getRankList().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link RankItem }
+     * 
+     * 
+     */
+    public List<RankItem> getRankList() {
+        if (rankList == null) {
+            rankList = new ArrayList<RankItem>();
+        }
+        return this.rankList;
     }
 
     /**

@@ -103,6 +103,7 @@ public class Client extends Thread {
     private void sendResponse(Response response) {
         try {
             out.writeObject(response);
+            out.reset();
         } catch (IOException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }

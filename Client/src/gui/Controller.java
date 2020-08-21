@@ -201,6 +201,7 @@ public class Controller {
     private void colorShip(Ship ship) {
         int y = ship.getCoordinates().getCol();
         int x = ship.getCoordinates().getRow();
+        System.out.println(x + "\t" + y);
         if (!ship.isVertical()) {
             for (int i = y; i < y + ship.getLength(); i++) {
                 this.document.userMap.getChildren().get(x * 10 + i).setStyle("-fx-background-color: blue");
@@ -214,21 +215,27 @@ public class Controller {
         }
     }
     
-    private void killShip(Ship ship) {
+    private void killShip(Ship ship, boolean userMap) {
         int y = ship.getCoordinates().getCol();
         int x = ship.getCoordinates().getRow();
         Node node;
         if (!ship.isVertical()) {
             for (int i = y; i < y + ship.getLength(); i++) {
-                node = this.document.userMap.getChildren().get(x * 10 + i);
+                if (userMap) {
+                    node = this.document.userMap.getChildren().get(x * 10 + i);
+                } else {
+                    node = this.document.serverMap.getChildren().get(x * 10 + i);
+                }
                 node.setStyle("-fx-background-color: red");
-                node.setStyle("-fx-opacity: 1");
             }
         } else {
             for (int i = x; i < x + ship.getLength(); i++) {
-                node = this.document.userMap.getChildren().get(i * 10 + y);
+                if (userMap) {
+                    node = this.document.userMap.getChildren().get(i * 10 + y);
+                } else {
+                    node = this.document.serverMap.getChildren().get(i * 10 + y);
+                }
                 node.setStyle("-fx-background-color: red");
-                node.setStyle("-fx-opacity: 1");
             }
         }
     }
@@ -324,7 +331,6 @@ public class Controller {
             // And start game
             updateStatus("Protivnik je izabrao formaciju, igra moze da pocne!", true);
             seTGridIsDisable(this.document.serverMap, false);
-            this.yourMap.printMap();
             this.document.confirmButton.setDisable(true);
         } else {
             Messages.showError("Problem prilikom startovanja igre!");
@@ -351,7 +357,8 @@ public class Controller {
             
             if (ship != null && !ship.isAlive()) {
                 // If ship is not alive we should all his fields color and write number
-                killShip(ship);
+                killShip(ship, gridToUpdate.equals(this.document.userMap));
+                return;
             }
             gridToUpdate.getChildren().get(row * 10 + col).setStyle("-fx-background-color: " + color);
         });
@@ -368,10 +375,6 @@ public class Controller {
                         row,
                         col,
                         finalResponse.getShip());
-                if (finalResponse.getShip() != null) {
-                    System.out.println("Number of fields alive: " + finalResponse.getShip().getFieldsAlive());
-                }
-                System.out.println(finalResponse.getUserPlaying());
                 // See if is now turn for server to shoot
                 // Then we create call to server and after that we update gui
                 if (!finalResponse.getUserPlaying()) {
@@ -478,7 +481,7 @@ public class Controller {
             Messages.showError("Problem prilikom dovlacenja podataka o rang listi.");
         }
     }
-
+    
     public void showRules() {
         try {
             InputStream in = new FileInputStream("src/assets/rules.properties");

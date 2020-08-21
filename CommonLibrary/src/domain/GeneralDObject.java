@@ -5,6 +5,7 @@
  */
 package domain;
 
+import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -12,7 +13,7 @@ import java.sql.SQLException;
  *
  * @author milos
  */
-public abstract class GeneralDObject {
+public abstract class GeneralDObject implements Serializable {
 
     abstract public String getAtrValue();
 
