@@ -49,7 +49,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     public Label statusLbl;
     @FXML
-    public ComboBox<Ship> shipsList;
+    public ComboBox shipsList;
 
     public Stage getStage() {
         return stage;
