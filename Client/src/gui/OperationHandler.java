@@ -63,14 +63,10 @@ public class OperationHandler extends Thread {
                             controller.serverShoot(finalResponse);
                         });
                         break;
+                    case USER_WIN:
                     case SERVER_WIN:
                         Platform.runLater(() -> {
-                            controller.serverWin(finalResponse);
-                        });
-                        break;
-                    case USER_WIN:
-                        Platform.runLater(() -> {
-                            controller.userWin(finalResponse);
+                            controller.manageWin(finalResponse);
                         });
                         break;
                     case SCOREBOARD:
