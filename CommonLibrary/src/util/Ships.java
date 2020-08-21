@@ -19,15 +19,15 @@ public class Ships {
     public static LinkedList<Ship> getShips() {
         LinkedList<Ship> ships = new LinkedList<>();
         ships.add(new Ship("Battleship - 4", 4));
-//        ships.add(new Ship("Cruiser 1 - 3", 3));
-//        ships.add(new Ship("Cruiser 2 - 3", 3));
-//        ships.add(new Ship("Destroyer 1 - 2", 2));
-//        ships.add(new Ship("Destroyer 2 - 2", 2));
-//        ships.add(new Ship("Destroyer 3 - 2", 2));
-//        ships.add(new Ship("Singleton 1 - 1", 1));
-//        ships.add(new Ship("Singleton 2 - 1", 1));
-//        ships.add(new Ship("Singleton 3 - 1", 1));
-//        ships.add(new Ship("Singleton 4 - 1", 1));
+        ships.add(new Ship("Cruiser 1 - 3", 3));
+        ships.add(new Ship("Cruiser 2 - 3", 3));
+        ships.add(new Ship("Destroyer 1 - 2", 2));
+        ships.add(new Ship("Destroyer 2 - 2", 2));
+        ships.add(new Ship("Destroyer 3 - 2", 2));
+        ships.add(new Ship("Singleton 1 - 1", 1));
+        ships.add(new Ship("Singleton 2 - 1", 1));
+        ships.add(new Ship("Singleton 3 - 1", 1));
+        ships.add(new Ship("Singleton 4 - 1", 1));
 
         return ships;
     }
